@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Nostalgia')
+@section('title', 'Dashboard')
 
 @section('slot')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-8 px-4">
@@ -14,16 +14,20 @@
             <h2 class="text-2xl font-bold text-[#1E376A] mb-6">Nostalgia 2000an</h2>
 
             <div class="flex flex-wrap gap-2 mb-6">
-                <a href="{{ route('dashboard', ['kategori' => 'Semua']) }}" class="px-3 py-1 {{ request('kategori') == 'Semua' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
+                <a href="{{ route('dashboard', ['username' => $username, 'kategori' => 'Semua']) }}" 
+                    class="px-3 py-1 {{ request('kategori') == 'Semua' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
                     Semua
                 </a>
-                <a href="{{ route('dashboard', ['kategori' => 'Kartun']) }}" class="px-3 py-1 {{ request('kategori') == 'Kartun' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
+                <a href="{{ route('dashboard', ['username' => $username, 'kategori' => 'Kartun']) }}" 
+                   class="px-3 py-1 {{ request('kategori') == 'Kartun' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
                     Kartun
                 </a>
-                <a href="{{ route('dashboard', ['kategori' => 'Permainan']) }}" class="px-3 py-1 {{ request('kategori') == 'Permainan' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
+                <a href="{{ route('dashboard', ['username' => $username, 'kategori' => 'Permainan']) }}" 
+                   class="px-3 py-1 {{ request('kategori') == 'Permainan' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
                     Permainan
                 </a>
-                <a href="{{ route('dashboard', ['kategori' => 'Lagu']) }}" class="px-3 py-1 {{ request('kategori') == 'Lagu' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
+                <a href="{{ route('dashboard', ['username' => $username, 'kategori' => 'Lagu']) }}" 
+                   class="px-3 py-1 {{ request('kategori') == 'Lagu' ? 'bg-[#1E376A] text-white' : 'bg-white border border-[#1E376A] text-[#1E376A]' }} rounded-full text-sm">
                     Lagu
                 </a>
             </div>
@@ -42,8 +46,7 @@
                     
                     <p class="text-gray-600 text-sm mb-4">{{ Str::limit($item['deskripsi'], 100) }}</p>
                     
-                    <a href="{{ $item['link'] }}" target="_blank" 
-                       class="block w-full text-center border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-1 rounded-lg transition">
+                    <a href="{{ $item['link'] }}" target="_blank" class="block w-full text-center border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-1 rounded-lg transition">
                         Lihat
                     </a>
                 </div>

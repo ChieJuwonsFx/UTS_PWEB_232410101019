@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Kamu')
+@section('title', 'Profile')
 
 @section('slot')
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-8 px-4 sm:px-6">

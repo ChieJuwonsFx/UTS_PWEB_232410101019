@@ -11,23 +11,26 @@
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul class="items-center font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
-                <li>
-                    <a href="/" class="{{ request()->is('/') ? 'text-[#1E376A] relative md:after:content-[\'\'] md:after:absolute md:after:bottom-0 md:after:left-0 md:after:w-full md:after:h-1 md:after:bg-[#1E376A] md:after:rounded-full' : 'text-gray-500 hover:text-[#1E376A]' }} block py-2 px-3">
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="/pengelolaan" class="{{ request()->is('pengelolaan') ? 'text-[#1E376A] relative md:after:content-[\'\'] md:after:absolute md:after:bottom-0 md:after:left-0 md:after:w-full md:after:h-1 md:after:bg-[#1E376A] md:after:rounded-full' : 'text-gray-500 hover:text-[#1E376A]' }} block py-2 px-3">
-                        Pengelolaan
-                    </a>
-                </li>
-                <li>
-                    <a href="/profile" class="{{ request()->is('profile') ? 'text-[#1E376A] relative md:after:content-[\'\'] md:after:absolute md:after:bottom-0 md:after:left-0 md:after:w-full md:after:h-1 md:after:bg-[#1E376A] md:after:rounded-full' : 'text-gray-500 hover:text-[#1E376A]' }} block py-2 px-3">
-                        Profil
-                    </a>
-                </li>
-                
                 @if(session('user'))
+                    <li>
+                        <a href="{{ route('dashboard', ['username' => session('user.username')]) }}" 
+                           class="{{ request()->is('dashboard*') ? 'text-[#1E376A] relative md:after:content-[\'\'] md:after:absolute md:after:bottom-0 md:after:left-0 md:after:w-full md:after:h-1 md:after:bg-[#1E376A] md:after:rounded-full' : 'text-gray-500 hover:text-[#1E376A]' }} block py-2 px-3">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('pengelolaan') }}" 
+                           class="{{ request()->is('pengelolaan') ? 'text-[#1E376A] relative md:after:content-[\'\'] md:after:absolute md:after:bottom-0 md:after:left-0 md:after:w-full md:after:h-1 md:after:bg-[#1E376A] md:after:rounded-full' : 'text-gray-500 hover:text-[#1E376A]' }} block py-2 px-3">
+                            Pengelolaan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile', ['username' => session('user.username')]) }}" 
+                           class="{{ request()->is('profile*') ? 'text-[#1E376A] relative md:after:content-[\'\'] md:after:absolute md:after:bottom-0 md:after:left-0 md:after:w-full md:after:h-1 md:after:bg-[#1E376A] md:after:rounded-full' : 'text-gray-500 hover:text-[#1E376A]' }} block py-2 px-3">
+                            Profil
+                        </a>
+                    </li>
+                    
                     <div class="flex space-x-2">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -37,9 +40,11 @@
                         </form>
                     </div>
                 @else
-                    <div class="flex space-x-2">
-                        <button type="button" onclick="window.location.href='{{ route('login') }}';" class="text-[#1E376A] bg-white border border-[#1E376A] hover:bg-[#1E376A] hover:text-white font-medium rounded-lg text-sm px-4 py-2 text-center">Login</button>
-                    </div>
+                    <li>
+                        <a href="{{ route('login') }}" class="text-gray-500 hover:text-[#1E376A] block py-2 px-3">
+                            Login
+                        </a>
+                    </li>
                 @endif
             </ul>
         </div>

@@ -102,47 +102,31 @@ class PageController extends Controller
         $request->validate([
             'username' => 'required|string|min:4|max:20|alpha_num',
             'password' => 'required|string|min:6',
-        ], [
-            'username.required' => 'Username wajib diisi.',
-            'username.string' => 'Username harus berupa teks.',
-            'username.min' => 'Username minimal 4 karakter.',
-            'username.max' => 'Username maksimal 20 karakter.',
-            'username.alpha_num' => 'Username hanya boleh berisi huruf dan angka.',
-            'password.required' => 'Password wajib diisi.',
-            'password.string' => 'Password harus berupa teks.',
-            'password.min' => 'Password minimal 6 karakter.'
         ]);
         
-
         session(['user' => [
             'username' => $request->username,
             'lastLogin' => now(),
         ]]);
-
+    
         return redirect()->route('dashboard', ['username' => $request->username])
             ->with('success', 'Login berhasil!');
     }
 
 
 
-    public function dashboard(Request $request)
+    public function dashboard($username, Request $request)
     {
-        if (!session()->has('user')) {
+        if (!session('user') || session('user.username') !== $username) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
-
-        $username = session('user.username');
-
+    
         $kategori = $request->get('kategori', 'Semua');
-
-        if ($kategori !== 'Semua') {
-            $nostalgia = array_filter($this->nostalgia, function ($item) use ($kategori) {
-                return $item['kategori'] == $kategori;
-            });
-        } else {
-            $nostalgia = $this->nostalgia;
-        }
-
+    
+        $nostalgia = $kategori === 'Semua' 
+            ? $this->nostalgia 
+            : array_filter($this->nostalgia, fn($item) => $item['kategori'] === $kategori);
+    
         return view('dashboard', compact('username', 'nostalgia'));
     }
 
@@ -165,7 +149,7 @@ class PageController extends Controller
         return view('createNostalgia');
     }
 
-    public function pengelolaantore(Request $request)
+    public function pengelolaanStore(Request $request)
     {
         $request->validate([
             'judul' => 'required|max:255|alpha_num_spaces',
@@ -198,13 +182,13 @@ class PageController extends Controller
         return redirect()->route('pengelolaan')->with('success', 'Nostalgia berhasil ditambahkan!');
     }
 
-    public function profile()
+    public function profile($username)
     {
-        $username = session('user.username');
 
-        if (!session()->has('user')) {
-            return redirect()->route('login')->with('error', 'Silakan login dulu.');
+        if (!session('user') || session('user.username') !== $username) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
+
 
         $nostalgia = $this->nostalgia;
 
