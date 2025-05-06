@@ -16,7 +16,7 @@
                 <div class="mb-5">
                     <label for="judul" class="block text-sm font-medium text-gray-700 mb-1">Judul</label>
                     <input type="text" id="judul" name="judul" class="w-full px-4 py-2 border border-gray-300 rounded-lg
-                    @error('username') border-red-500 @enderror" value="{{ old('judul') }}" placeholder="Masukkan judul nostalgia">
+                    @error('judul') border-red-500 @enderror" value="{{ old('judul') }}" placeholder="Masukkan judul nostalgia">
                     @error('judul')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -25,7 +25,7 @@
                 <div class="mb-5">
                     <label for="kategori" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
                     <select id="kategori" name="kategori" class="w-full px-4 py-2 border border-gray-300 rounded-lg
-                    @error('username') border-red-500 @enderror">
+                    @error('kategori') border-red-500 @enderror">
                         <option value="">Pilih Kategori</option>
                         <option value="Kartun" {{ old('kategori') == 'Kartun' ? 'selected' : '' }}>Kartun</option>
                         <option value="Permainan" {{ old('kategori') == 'Permainan' ? 'selected' : '' }}>Permainan</option>
@@ -39,7 +39,7 @@
                 <div class="mb-5">
                     <label for="tahun" class="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
                     <input type="number" id="tahun" name="tahun" class="w-full px-4 py-2 border border-gray-300 rounded-lg
-                    @error('username') border-red-500 @enderror" value="{{ old('tahun') }}" placeholder="Tahun rilis/terkenal" max="{{ date('Y') }}">
+                    @error('tahun') border-red-500 @enderror" value="{{ old('tahun') }}" placeholder="Tahun rilis/terkenal" max="{{ date('Y') }}">
                     @error('tahun')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -48,7 +48,7 @@
                 <div class="mb-5">
                     <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
                     <textarea id="deskripsi" name="deskripsi" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg
-                    @error('username') border-red-500 @enderror" placeholder="Ceritakan kenangan tentang nostalgia ini">{{ old('deskripsi') }}</textarea>
+                    @error('deskripsi') border-red-500 @enderror" placeholder="Ceritakan kenangan tentang nostalgia ini">{{ old('deskripsi') }}</textarea>
                     @error('deskripsi')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -57,7 +57,7 @@
                 <div class="mb-6">
                     <label for="link" class="block text-sm font-medium text-gray-700 mb-1">Link Referensi</label>
                     <input type="url" id="link" name="link" class="w-full px-4 py-2 border border-gray-300 rounded-lg
-                    @error('username') border-red-500 @enderror" value="{{ old('link') }}" placeholder="https://wikipedia.com/aku-suka-dia">
+                    @error('link') border-red-500 @enderror" value="{{ old('link') }}" placeholder="https://wikipedia.com/aku-suka-dia">
                     @error('link')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
