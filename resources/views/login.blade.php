@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon">
     <title>InnoVixus - Login</title>
 </head>
 
@@ -41,7 +42,7 @@
                             @enderror
                         </div>
         
-                        <button type="submit" class="w-full border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-2 px-4 rounded-lg transition duration-200">
+                        <button type="submit" class="w-full border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-2 px-4 rounded-lg">
                             Log In
                         </button>
                     </form>

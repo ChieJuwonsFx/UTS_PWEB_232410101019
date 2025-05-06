@@ -8,7 +8,6 @@ class PageController extends Controller
 {
     private $nostalgia = [
         [
-            'id' => 1,
             'judul' => 'SpongeBob SquarePants',
             'kategori' => 'Kartun',
             'tahun' => '1999',
@@ -16,7 +15,6 @@ class PageController extends Controller
             'link' => 'https://id.wikipedia.org/wiki/SpongeBob_SquarePants'
         ],
         [
-            'id' => 2,
             'judul' => 'Upin & Ipin',
             'kategori' => 'Kartun',
             'tahun' => '2007',
@@ -24,7 +22,6 @@ class PageController extends Controller
             'link' => 'https://id.wikipedia.org/wiki/Upin_%26_Ipin'
         ],
         [
-            'id' => 3,
             'judul' => 'Tom and Jerry',
             'kategori' => 'Kartun',
             'tahun' => '1940',
@@ -33,7 +30,6 @@ class PageController extends Controller
         ],
 
         [
-            'id' => 4,
             'judul' => 'Dragon Ball Z',
             'kategori' => 'Kartun',
             'tahun' => '1989',
@@ -42,7 +38,6 @@ class PageController extends Controller
         ],
 
         [
-            'id' => 5,
             'judul' => 'Angry Birds',
             'kategori' => 'Permainan',
             'tahun' => '2009',
@@ -50,7 +45,6 @@ class PageController extends Controller
             'link' => 'https://id.wikipedia.org/wiki/Angry_Birds'
         ],
         [
-            'id' => 6,
             'judul' => 'Tetris',
             'kategori' => 'Permainan',
             'tahun' => '1984',
@@ -58,7 +52,6 @@ class PageController extends Controller
             'link' => 'https://id.wikipedia.org/wiki/Tetris'
         ],
         [
-            'id' => 7,
             'judul' => 'Super Mario Bros.',
             'kategori' => 'Permainan',
             'tahun' => '1985',
@@ -67,7 +60,6 @@ class PageController extends Controller
         ],
 
         [
-            'id' => 8,
             'judul' => 'Bohemian Rhapsody',
             'kategori' => 'Lagu',
             'tahun' => '1975',
@@ -75,7 +67,6 @@ class PageController extends Controller
             'link' => 'https://id.wikipedia.org/wiki/Bohemian_Rhapsody'
         ],
         [
-            'id' => 9,
             'judul' => 'Imagine',
             'kategori' => 'Lagu',
             'tahun' => '1971',
@@ -83,11 +74,10 @@ class PageController extends Controller
             'link' => 'https://id.wikipedia.org/wiki/Imagine_(lagu)'
         ],
         [
-            'id' => 10,
             'judul' => 'Smells Like Teen Spirit',
             'kategori' => 'Lagu',
             'tahun' => '1991',
-            'deskripsi' => '"Smells Like Teen Spirit" adalah lagu dari grup musik rock asal Amerika Serikat, Nirvana.',
+            'deskripsi' => '"Smells Like Teen Spirit" adalah lagu dari grup musik rock asal Amerika Serikat, Nirvana. Lagu ini adalah lagu pembuka dan singel pertama dari album kedua mereka, Nevermind yang dirilis melalui DGC Records.',
             'link' => 'https://id.wikipedia.org/wiki/Smells_Like_Teen_Spirit'
         ]
     ];
@@ -97,70 +87,81 @@ class PageController extends Controller
         return view('login');
     }
 
-    public function loginRequest(Request $request)
+    public function loginReq(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|min:4|max:20|alpha_num',
+            'username' => 'required|string|min:4|max:20',
             'password' => 'required|string|min:6',
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'username.string' => 'Username harus berupa teks.',
+            'username.min' => 'Username minimal 4 karakter.',
+            'username.max' => 'Username maksimal 20 karakter.',
+            'password.required' => 'Password wajib diisi.',
+            'password.string' => 'Password harus berupa teks.',
+            'password.min' => 'Password minimal 6 karakter.'
         ]);
         
         session(['user' => [
-            'username' => $request->username,
-            'lastLogin' => now(),
+            'username' => $request->username, 'lastLogin' => now(),
         ]]);
-    
-        return redirect()->route('dashboard', ['username' => $request->username])
-            ->with('success', 'Login berhasil!');
+
+        $username = $request->username;
+
+        return redirect()->route('dashboard', compact('username'));
     }
 
 
 
-    public function dashboard($username, Request $request)
+    public function dashboard(Request $request)
     {
-        if (!session('user') || session('user.username') !== $username) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        $username = $request->query('username');
+        
+        if (!session()->has('user')) {
+            return redirect()->route('login');
         }
     
         $kategori = $request->get('kategori', 'Semua');
     
-        $nostalgia = $kategori === 'Semua' 
+        $nostalgias = $kategori === 'Semua' 
             ? $this->nostalgia 
             : array_filter($this->nostalgia, fn($item) => $item['kategori'] === $kategori);
     
-        return view('dashboard', compact('username', 'nostalgia'));
+        return view('dashboard', compact('username', 'nostalgias'));
     }
 
 
     public function pengelolaan(Request $request)
     {
         if (!session()->has('user')) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+            return redirect()->route('login');
         }
 
-        $username = session('user.username');
+        $username = $request->query('username');
         $nostalgias = $this->nostalgia;
         $totalNostalgia = count($this->nostalgia);
 
-        return view('pengelolaan', compact('nostalgias', 'totalNostalgia'));
+        return view('pengelolaan', compact('nostalgias', 'totalNostalgia', 'username'));
     }
 
-    public function pengelolaanCreate()
+    public function pengelolaanCreate(Request $request)
     {
-        return view('createNostalgia');
+        $username = $request->query('username');
+        return view('createNostalgia', compact('username'));
     }
 
     public function pengelolaanStore(Request $request)
     {
+        $username = $request->query('username');
         $request->validate([
-            'judul' => 'required|max:255|alpha_num_spaces',
+            'judul' => 'required|max:255',
             'kategori' => 'required|string|max:100',
             'tahun' => 'required|numeric|digits:4|between:1900,' . date('Y'),
             'deskripsi' => 'required|string|min:10|max:1000',
-            'link' => 'required|url|starts_with:http,https|active_url',
+            'link' => 'required|url|active_url',
         ], [
             'judul.required' => 'Judul nostalgia wajib diisi.',
             'judul.max' => 'Judul nostalgia tidak boleh lebih dari 255 karakter.',
-            'judul.alpha_num_spaces' => 'Judul hanya boleh berisi huruf, angka, dan spasi.',
             'kategori.required' => 'Kategori nostalgia wajib diisi.',
             'kategori.string' => 'Kategori harus berupa teks.',
             'kategori.max' => 'Kategori tidak boleh lebih dari 100 karakter.',
@@ -174,21 +175,18 @@ class PageController extends Controller
             'deskripsi.max' => 'Deskripsi tidak boleh lebih dari 1000 karakter.',
             'link.required' => 'Link Wikipedia wajib diisi.',
             'link.url' => 'Link harus berupa URL yang valid.',
-            'link.starts_with' => 'Link harus dimulai dengan http:// atau https://.',
             'link.active_url' => 'Link harus mengarah ke URL yang aktif.',
         ]);
-
-
-        return redirect()->route('pengelolaan')->with('success', 'Nostalgia berhasil ditambahkan!');
+        return redirect()->route('pengelolaan', compact('username'))->with('alert', 'Data Berhasil Ditambahkan');
     }
 
-    public function profile($username)
+    public function profile(Request $request)
     {
+        $username = $request->query('username');
 
-        if (!session('user') || session('user.username') !== $username) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        if (!session()->has('user')) {
+            return redirect()->route('login');
         }
-
 
         $nostalgia = $this->nostalgia;
 
@@ -218,8 +216,7 @@ class PageController extends Controller
             'Kalau kamu ingat "Smells Like Teen Spirit", berarti kamu setidaknya nostalgia anak 90-an.'
         ];
         $faktaRandom = $faktaList[array_rand($faktaList)];
-        
-
+    
         return view('profile', compact('nostalgia', 'kategoriFavorit', 'pertama', 'levelNostalgia', 'levelDesc', 'faktaRandom', 'username'));
     }
 
@@ -227,6 +224,6 @@ class PageController extends Controller
     public function logout(Request $request)
     {
         $request->session()->forget('user');
-        return redirect('/')->with('success', 'Logout berhasil!');
+        return redirect('/');
     }
 }

@@ -6,7 +6,7 @@
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-8 px-4 sm:px-6">
     <div class="max-w-4xl mx-auto">
         <div class="text-center mb-8">
-            <h1 class="text-2xl sm:text-3xl font-bold text-[#1E376A]">Halo, {{ session('user.username') }}</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#1E376A]">Halo, {{ $username }}</h1>
             <p class="text-gray-600 mt-2">Ringkasan aktivitas nostalgia kamu</p>
         </div>
 
@@ -14,11 +14,11 @@
             <div class="bg-[#1E376A] px-6 py-4">
                 <div class="flex items-center">
                     <div class="bg-white text-[#1E376A] rounded-full w-12 h-12 flex items-center justify-center mr-4 font-medium">
-                        {{ substr(session('user.username'), 0, 3) }}
+                        {{ substr($username, 0, 3) }}
                     </div>
                     <div>
-                        <h2 class="text-lg font-semibold text-white">{{ session('user.username') }}</h2>
-                        <p class="text-blue-100 text-sm">Terakhir login {{ \Carbon\Carbon::parse(session('user.lastLogin'))->diffForHumans() }}</p>
+                        <h2 class="text-lg font-semibold text-white">{{ $username }}</h2>
+                        <p class="text-blue-100 text-sm">Terakhir login {{ session('user.lastLogin')->diffForHumans() }}</p>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="text-center">
-                    <a href="{{ route('logout') }}" class="inline-block border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] px-6 py-2 rounded-lg text-sm transition">
+                    <a href="{{ route('logout') }}" class="inline-block border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] px-6 py-2 rounded-lg text-sm">
                         Keluar
                     </a>
                 </div>

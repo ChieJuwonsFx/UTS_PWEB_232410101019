@@ -18,7 +18,7 @@
             
             <div class="bg-white border border-[#1E376A] rounded-lg p-5 shadow-sm flex flex-col">
                 <h2 class="text-lg font-semibold text-gray-700 mb-2">Aksi</h2>
-                <a href="{{ route('pengelolaan.create') }}" class="mt-auto border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-1 px-4 rounded-lg transition duration-200 inline-block w-fit">
+                <a href="{{ route('pengelolaan.create', ['username' => $username]) }}" class="mt-auto border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-1 px-4 rounded-lg inline-block w-fit">
                     + Tambah Nostalgia
                 </a>
             </div>
@@ -33,17 +33,21 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Judul</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tahun</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kategori</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Deskripsi</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Link</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($nostalgias as $nostalgia)
-                        <tr class="hover:bg-blue-50 transition duration-150">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $nostalgia['judul'] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $nostalgia['tahun'] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $nostalgia['kategori'] }}</td>
+                        <tr class="hover:bg-blue-50">
+                            <td class="px-6 py-4 whitespace-nowrap lg:whitespace-normal text-sm font-medium text-gray-900">{{ $nostalgia['judul'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap lg:whitespace-normal text-sm text-gray-500">{{ $nostalgia['tahun'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap lg:whitespace-normal text-sm text-gray-500">{{ $nostalgia['kategori'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap lg:whitespace-normal text-sm text-gray-500">{{ $nostalgia['deskripsi'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap lg:whitespace-normal text-sm text-gray-500">{{ $nostalgia['link'] }}</td>
                         </tr>
                         @endforeach
                     </tbody>

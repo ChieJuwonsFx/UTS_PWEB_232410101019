@@ -33,20 +33,20 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach ($nostalgia as $item)
-                <div class="bg-white border border-[#1E376A] rounded-lg p-4 hover:shadow-md transition">
+                @foreach ($nostalgias as $nostalgia)
+                <div class="bg-white border border-[#1E376A] rounded-lg p-4 hover:shadow-md">
                     <div class="mb-3">
-                        <h3 class="text-lg font-bold text-[#1E376A]">{{ $item['judul'] }}</h3>
+                        <h3 class="text-lg font-bold text-[#1E376A]">{{ $nostalgia['judul'] }}</h3>
                         <div class="flex items-center text-sm text-gray-500 mt-1">
-                            <span>{{ $item['kategori'] }}</span>
+                            <span>{{ $nostalgia['kategori'] }}</span>
                             <span class="mx-2">•</span>
-                            <span>{{ $item['tahun'] }}</span>
+                            <span>{{ $nostalgia['tahun'] }}</span>
                         </div>
                     </div>
                     
-                    <p class="text-gray-600 text-sm mb-4">{{ Str::limit($item['deskripsi'], 100) }}</p>
+                    <p class="text-gray-600 text-sm mb-4">{{ Str::limit($nostalgia['deskripsi'], 110) }}</p>
                     
-                    <a href="{{ $item['link'] }}" target="_blank" class="block w-full text-center border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-1 rounded-lg transition">
+                    <a href="{{ $nostalgia['link'] }}" target="_blank" class="block w-full text-center border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] font-medium py-1 rounded-lg">
                         Lihat
                     </a>
                 </div>
