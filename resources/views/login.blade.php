@@ -24,7 +24,7 @@
                         @csrf
                         <div class="space-y-2">
                             <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                            <input id="username" name="username" type="text" class="w-full px-4 py-2 rounded-lg border border-gray-300
+                            <input id="username" name="username" type="text" class="w-full px-4 py-2 rounded-lg border border-[#1E376A]
                                 @error('username') border-red-500 @enderror" value="{{ old('username') }}" placeholder="Masukkan Username"/>
                             @error('username')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

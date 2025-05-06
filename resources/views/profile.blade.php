@@ -52,9 +52,12 @@
                 </div>
 
                 <div class="text-center">
-                    <a href="{{ route('logout') }}" class="inline-block border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] px-6 py-2 rounded-lg text-sm">
-                        Keluar
-                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="inline-block border border-[#1E376A] bg-[#1E376A] hover:bg-white text-white hover:text-[#1E376A] px-6 py-2 rounded-lg text-sm">
+                            Keluar
+                        </button>
+                    </form>                    
                 </div>
             </div>
         </div>
